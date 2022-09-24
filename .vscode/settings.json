@@ -1,0 +1,24 @@
+{
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "xaver.clang-format",
+    "clangd.arguments": [
+        "--header-filter='.*'"
+    ],
+    "clang-tidy.checks": [
+        "-*",
+        "modernize-*",
+        "bugprone-*",
+        "misc-*",
+        "performance-*",
+        "readability-*",
+        "clang-diagnostic-*",
+        "clang-analyzer-*",
+        "cpp-core_guidelines-*",
+        "-modernize-use-trailing-return-type"
+    ],
+    "clang-tidy.buildPath": ".pio/build/esp32doit-devkit-v1",
+    "clang-format.assumeFilename": ".clang-format",
+    "clang-format.executable": "D:/LLVM/bin/clang-format.exe",
+    "files.associations": {
+    }
+}
