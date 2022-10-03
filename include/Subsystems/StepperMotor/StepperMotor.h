@@ -13,10 +13,12 @@
 
 #include <Arduino.h>
 #include <Stepper.h>
+#include <Subsystems/Utilities/SystemLogger.h>
 #include <esp32-hal-gpio.h>
 
 class StepMotor {
    public:
+    StepMotor();
     /**
      * @brief Initialize stepper motor
      *
@@ -33,4 +35,6 @@ class StepMotor {
     void turn(int steps, int direction);
 
    private:
+    std::string tag = "Stepper Motor";
+    SystemLogger* systemLogger = SystemLogger::getLogger();
 };

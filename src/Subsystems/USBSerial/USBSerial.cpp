@@ -1,4 +1,4 @@
-#include <Subsystems/SerialUSB/USBSerial.h>
+#include <Subsystems/USBSerial/USBSerial.h>
 
 void USBSerial::initialize(void) { Serial.begin(SERIAL_BAUD_RATE); }
 

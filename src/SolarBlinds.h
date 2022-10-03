@@ -9,9 +9,11 @@
  *
  */
 
-#include <Subsystems/SCPIHandler.h>
-#include <Subsystems/SerialUSB/USBSerial.h>
+#include <Subsystems/Messaging/SCPIHandler.h>
+#include <Subsystems/Messaging/SCPIListener.h>
 #include <Subsystems/StepperMotor/StepperMotor.h>
+#include <Subsystems/USBSerial/USBSerial.h>
+#include <Subsystems/Utilities/SystemLogger.h>
 
 class SolarBlinds {
    public:
@@ -28,6 +30,8 @@ class SolarBlinds {
     void run(void);
 
    private:
-    StepMotor *stepMotor;  // Step Motor Class Object
-    USBSerial *usbSerial;  // USB Serial Class Object
+    StepMotor *stepperMotor;  // Step Motor Class Object
+    USBSerial *usbSerial;     // USB Serial Class Object
+    SCPIListener *scpiListener;
+    SCPIHandler *scpiHandler;
 };
