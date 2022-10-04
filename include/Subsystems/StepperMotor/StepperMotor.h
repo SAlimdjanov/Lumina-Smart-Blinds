@@ -1,7 +1,7 @@
 /**
  * @file StepperMotor.h
  * @author Sean Alimdjanov (alimdjas@mcmaster.ca)
- * @brief
+ * @brief Stepper motor implementation
  * @version 0.1
  * @date 2022-09-24
  *
@@ -18,6 +18,10 @@
 
 class StepMotor {
    public:
+    /**
+     * @brief Construct a new Step Motor object
+     *
+     */
     StepMotor();
     /**
      * @brief Initialize stepper motor
@@ -26,15 +30,32 @@ class StepMotor {
     void initialize(void);
 
     /**
-     * @brief Rotate the stepper motor
+     * @brief Rotate the stepper motor counterclockwise
      *
      * @param steps Number of steps to travel
-     * @param direction direction of rotation
      *
      */
-    void turn(int steps, int direction);
+    void turnCCW(int steps);
+
+    /**
+     * @brief Rotate the stepper motor clockwise
+     *
+     * @param steps Number of steps to travel
+     *
+     */
+    void turnCW(int steps);
+
+    /**
+     * @brief Stop motor
+     *
+     */
+    void stop(void);
 
    private:
+    // Module tag string
     std::string tag = "Stepper Motor";
+    // Motor speed (RPM)
+    const int MOTOR_SPEED = 10;
+    // Obtain instance of logger
     SystemLogger* systemLogger = SystemLogger::getLogger();
 };

@@ -15,19 +15,24 @@ Stepper stepMotor(STEPS_PER_REVOLUTION, MOTOR_PIN_1, MOTOR_PIN_2, MOTOR_PIN_3,
 StepMotor::StepMotor() {}
 
 void StepMotor::initialize(void) {
-    stepMotor.setSpeed(10);
-    systemLogger->logInfo(tag, "Initialized Stepper Motor to 10 RPM");
+    stepMotor.setSpeed(MOTOR_SPEED);
+    systemLogger->logInfo(tag, "Initialized Stepper Motor to speed 10 RPM");
 }
 
-void StepMotor::turn(int steps, int direction) {
-    std::string directionString;
-    if (direction == 1) {
-        stepMotor.step(steps);
-        directionString = "clockwise";
-    } else {
-        stepMotor.step(-steps);
-        directionString = "counter clockwise";
-    }
-    std::string message = "Turning motor " + directionString;
+void StepMotor::turnCCW(int steps) {
+    stepMotor.step(-steps);
+    std::string message = "Turned motor Counterclockwise";
+    systemLogger->logInfo(tag, message);
+}
+
+void StepMotor::turnCW(int steps) {
+    stepMotor.step(steps);
+    std::string message = "Turned motor Clockwise";
+    systemLogger->logInfo(tag, message);
+}
+
+void StepMotor::stop() {
+    stepMotor.step(0);
+    std::string message = "Stopped Motor";
     systemLogger->logInfo(tag, message);
 }

@@ -11,10 +11,10 @@ void SCPIListener::listenForCommand() {
 void SCPIListener::registerNewMessage(const __FlashStringHelper *command,
                                       SCPI_caller_t caller) {
     scpiParser.RegisterCommand(command, caller);
-    systemLogger->logInfo(tag, "Registered Command");
+    systemLogger->logVerbose(tag, "Registered Command");
 }
 
 void SCPIListener::addNewInterface(Stream *interface) {
     this->interfaceList.push_back(interface);
-    systemLogger->logInfo(tag, "Added interface");
+    systemLogger->logVerbose(tag, "Added interface");
 }

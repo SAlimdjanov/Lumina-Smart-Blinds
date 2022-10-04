@@ -2,7 +2,7 @@
 
 SystemLogger* SystemLogger::logInstance = NULL;
 
-SystemLogger::SystemLogger() : logLevel(Level::LOG_INFO) {}
+SystemLogger::SystemLogger() : logLevel(Level::LOG_VERBOSE) {}
 
 SystemLogger* SystemLogger::getLogger() {
     if (SystemLogger::logInstance == NULL) {

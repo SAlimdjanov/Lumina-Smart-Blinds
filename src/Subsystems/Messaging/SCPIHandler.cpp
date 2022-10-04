@@ -15,21 +15,22 @@ SCPIHandler::SCPIHandler(SCPIListener *listener) : scpiListener(listener) {
 
 void SCPIHandler::identifyCommand(SCPI_C messages, SCPI_P parameters,
                                   Stream &interface) {
-    String identifier = "4A06 Automated Solar Blinds\n";
+    String identifier =
+        "ENGPHYS 4A06: Automated Solar Blinds Capstone Project\n";
     interface.print(identifier);
 }
 
 void SCPIHandler::stopMotor(SCPI_C messages, SCPI_P parameters,
                             Stream &interface) {
     if (areParametersValid(parameters, 0, interface) == true) {
-        stepperMotor->turn(0, 0);
+        stepperMotor->stop();
         systemLogger->logInfo(tag, "Stopping Motor");
     }
 }
 void SCPIHandler::moveMotorClockwise(SCPI_C messages, SCPI_P parameters,
                                      Stream &interface) {
     if (areParametersValid(parameters, 1, interface) == true) {
-        stepperMotor->turn(1, String(parameters[0]).toInt());
+        stepperMotor->turnCW(String(parameters[0]).toInt());
         systemLogger->logInfo(tag, "Turning Motor Clockwise");
     }
 }
@@ -37,7 +38,7 @@ void SCPIHandler::moveMotorClockwise(SCPI_C messages, SCPI_P parameters,
 void SCPIHandler::moveMotorCounterclockwise(SCPI_C messages, SCPI_P parameters,
                                             Stream &interface) {
     if (areParametersValid(parameters, 1, interface) == true) {
-        stepperMotor->turn(1, String(parameters[0]).toInt());
+        stepperMotor->turnCCW(String(parameters[0]).toInt());
         systemLogger->logInfo(tag, "Turning Motor Counterclockwise");
     }
 }
