@@ -20,13 +20,13 @@ void StepMotor::initialize(void) {
 }
 
 void StepMotor::turnCCW(int steps) {
-    stepMotor.step(-steps);
+    stepMotor.step(steps);
     std::string message = "Turned motor Counterclockwise";
     systemLogger->logInfo(tag, message);
 }
 
 void StepMotor::turnCW(int steps) {
-    stepMotor.step(steps);
+    stepMotor.step(-steps);
     std::string message = "Turned motor Clockwise";
     systemLogger->logInfo(tag, message);
 }

@@ -31,7 +31,7 @@ void SCPIHandler::moveMotorClockwise(SCPI_C messages, SCPI_P parameters,
                                      Stream &interface) {
     if (areParametersValid(parameters, 1, interface) == true) {
         stepperMotor->turnCW(String(parameters[0]).toInt());
-        systemLogger->logInfo(tag, "Turning Motor Clockwise");
+        systemLogger->logInfo(tag, "Received clockwise command");
     }
 }
 
@@ -39,7 +39,7 @@ void SCPIHandler::moveMotorCounterclockwise(SCPI_C messages, SCPI_P parameters,
                                             Stream &interface) {
     if (areParametersValid(parameters, 1, interface) == true) {
         stepperMotor->turnCCW(String(parameters[0]).toInt());
-        systemLogger->logInfo(tag, "Turning Motor Counterclockwise");
+        systemLogger->logInfo(tag, "Received counterclockwise command");
     }
 }
 
