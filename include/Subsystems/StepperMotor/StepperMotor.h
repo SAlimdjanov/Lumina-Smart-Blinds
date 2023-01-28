@@ -45,17 +45,11 @@ class StepMotor {
      */
     void turnCW(int steps);
 
-    /**
-     * @brief Stop motor
-     *
-     */
-    void stop(void);
-
    private:
     // Module tag string
     std::string tag = "Stepper Motor";
     // Motor speed (RPM)
-    const int MOTOR_SPEED = 10;
+    const int MOTOR_SPEED = 5;
     // Obtain instance of logger
     SystemLogger* systemLogger = SystemLogger::getLogger();
 };

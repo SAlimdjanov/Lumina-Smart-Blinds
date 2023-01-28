@@ -6,7 +6,6 @@ StepMotor *SCPIHandler::stepperMotor = new StepMotor();
 
 SCPIHandler::SCPIHandler(SCPIListener *listener) : scpiListener(listener) {
     listener->registerNewMessage(F("*IDN?"), &SCPIHandler::identifyCommand);
-    listener->registerNewMessage(F(":MOTOr:STOP:"), &SCPIHandler::stopMotor);
     listener->registerNewMessage(F(":MOTOr:MCW:"),
                                  &SCPIHandler::moveMotorClockwise);
     listener->registerNewMessage(F(":MOTOr:MCCW:"),
@@ -20,13 +19,6 @@ void SCPIHandler::identifyCommand(SCPI_C messages, SCPI_P parameters,
     interface.print(identifier);
 }
 
-void SCPIHandler::stopMotor(SCPI_C messages, SCPI_P parameters,
-                            Stream &interface) {
-    if (areParametersValid(parameters, 0, interface) == true) {
-        stepperMotor->stop();
-        systemLogger->logInfo(tag, "Stopping Motor");
-    }
-}
 void SCPIHandler::moveMotorClockwise(SCPI_C messages, SCPI_P parameters,
                                      Stream &interface) {
     if (areParametersValid(parameters, 1, interface) == true) {

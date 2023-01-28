@@ -14,6 +14,7 @@
 #include <Subsystems/StepperMotor/StepperMotor.h>
 #include <Subsystems/USBSerial/USBSerial.h>
 #include <Subsystems/Utilities/SystemLogger.h>
+#include <Subsystems/WiFi/WiFiTCP.h>
 
 class SolarBlinds {
    public:
@@ -34,4 +35,5 @@ class SolarBlinds {
     USBSerial *usbSerial;     // USB Serial Class Object
     SCPIListener *scpiListener;
     SCPIHandler *scpiHandler;
+    WiFiTCP *wiFiTCP;
 };

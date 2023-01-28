@@ -18,7 +18,6 @@
 #include <Vrekrer_scpi_parser.h>
 #include <WString.h>
 
-
 class SCPIHandler {
    public:
     /**
@@ -37,16 +36,6 @@ class SCPIHandler {
      */
     static void identifyCommand(SCPI_C messages, SCPI_P parameters,
                                 Stream &interface);
-
-    /**
-     * @brief Stops Motor
-     *
-     * @param messages Command "MOTOr:STOP"
-     * @param parameters SCPI Parameters (none)
-     * @param interface Corresponding interface
-     */
-    static void stopMotor(SCPI_C messages, SCPI_P parameters,
-                          Stream &interface);
 
     /**
      * @brief Turn the motor clockwise
