@@ -1,7 +1,7 @@
 #include <SolarBlinds.h>
 
-// Comment out to use without Wi-Fi
-const bool USE_WIFI = false;
+// Change to true to use Wi-Fi
+const bool USE_WIFI = true;
 
 void SolarBlinds::initialize(void) {
     // Initialize USB serial communications

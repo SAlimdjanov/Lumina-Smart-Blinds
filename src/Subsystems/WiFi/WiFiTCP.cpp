@@ -1,12 +1,11 @@
 #include <Subsystems/WiFi/WiFiTCP.h>
 
-const char *NETWORK_ID = "Name";
-const char *PASSWORD = "Password";
+const char *SSID = "networkname";
+const char *PASSWORD = "password";
 
-const uint16_t PORT_ID = 10000;
-const char *HOST_IP = "192.000.000.000";
+int currentAngle = 0;
 
-const long TCP_CONNECT_TIME_INTERVAL = 1000;
+StepMotor *WiFiTCP::motor = new StepMotor();
 
 WiFiTCP::WiFiTCP()
     : TCPClient(new WiFiClient()),
@@ -15,34 +14,52 @@ WiFiTCP::WiFiTCP()
       systemLogger(SystemLogger::getLogger()) {}
 
 void WiFiTCP::initialize() {
-    WiFi.begin(NETWORK_ID, PASSWORD);
-    systemLogger->logInfo(tag, "Connecting to Wi-Fi");
+    WiFi.mode(WIFI_STA);  // Optional
+    WiFi.begin(SSID, PASSWORD);
+    Serial.println("\nConnecting");
+
+    while (WiFi.status() != WL_CONNECTED) {
+        Serial.print(".");
+        delay(100);
+    }
+
+    Serial.println("\nConnected to Blinds!\n");
+
+    time = millis() + 1000;  // Delay first get request to avoid init error
 }
 
-void WiFiTCP::checkConnection() {
-    if (!isWiFiConnected) {
-        if (WiFi.status() == WL_CONNECTED) {
-            isWiFiConnected = true;
-            systemLogger->logInfo(tag, "Wi-Fi connection established");
-        }
-        return;
-    }
-    if (WiFi.status() != WL_CONNECTED) {
-        systemLogger->logInfo(
-            tag, "Wi-Fi connection lost. Attempting to reconnect.");
-        WiFi.disconnect();
-        isWiFiConnected = false;
-        WiFi.begin(NETWORK_ID, PASSWORD);
-        return;
-    }
-    if (!TCPClient->connected()) {
-        if ((millis() - this->lastTCPAttemptTimestamp) >=
-            TCP_CONNECT_TIME_INTERVAL) {
-            systemLogger->logInfo(tag, "Attempting connect to TCP");
-            if (TCPClient->connect(HOST_IP, PORT_ID, 10)) {
-                systemLogger->logInfo(tag, "TCP connection established.");
+void WiFiTCP::checkConnection() {  // Rename? (Functionality may change)
+    if (millis() - time >= POLLING_INTERVAL) {
+        if ((WiFi.status() ==
+             WL_CONNECTED)) {  // Check the current connection status
+            HTTPClient http;
+
+            http.begin(
+                "https://automated-solar-blinds-default-rtdb.firebaseio.com/"
+                "angle.json");          // Specify the URL
+            int httpCode = http.GET();  // Make the request
+
+            if (httpCode > 0) {  // Check for the returning code
+                String newAngle = http.getString();
+                Serial.print("The current angle is: ");
+                Serial.println(newAngle);
+                int newAngleInt = newAngle.toInt();
+                if (newAngleInt > currentAngle) {
+                    motor->turnCW(
+                        round((newAngleInt - currentAngle) * 2048 / 360));
+                } else if (newAngleInt < currentAngle) {
+                    motor->turnCCW(
+                        round((currentAngle - newAngleInt) * 2048 / 360));
+                }
+                currentAngle = newAngleInt;
             }
-            this->lastTCPAttemptTimestamp = millis();
+
+            else {
+                Serial.println("Error on HTTP request");
+            }
+
+            http.end();       // Free the resources
+            time = millis();  // Reset millis time
         }
     }
 }

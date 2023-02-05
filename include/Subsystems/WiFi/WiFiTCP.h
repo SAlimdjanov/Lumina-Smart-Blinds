@@ -11,11 +11,12 @@
 
 #pragma once
 
+#include <HTTPClient.h>
+#include <Subsystems/StepperMotor/StepperMotor.h>
 #include <Subsystems/Utilities/SystemLogger.h>
+#include <WiFi.h>
 
 #include <string>
-
-#include "WiFi.h"
 
 class WiFiTCP {
    public:
@@ -32,9 +33,12 @@ class WiFiTCP {
     WiFiClient *getTCPClient();
 
    private:
+    unsigned long time;
+    int POLLING_INTERVAL = 1000;
     std::string tag = "WiFiTCP";
     WiFiClient *TCPClient;
     bool isWiFiConnected;
     long lastTCPAttemptTimestamp;
     SystemLogger *systemLogger;
+    static StepMotor *motor;
 };
