@@ -17,17 +17,18 @@ void SolarBlinds::initialize(void) {
     scpiHandler = new SCPIHandler(scpiListener);
     // // Initialize Wi-Fi, if enabled
     if (USE_WIFI) {
-        wiFiTCP = new WiFiTCP();
-        wiFiTCP->initialize();
-        scpiListener->addNewInterface(wiFiTCP->getTCPClient());
+        wiFiHTTCP = new WiFiHTTCP();
+        wiFiHTTCP->initialize();
+        scpiListener->addNewInterface(wiFiHTTCP->getTCPClient());
     }
 }
 
 void SolarBlinds::run(void) {
+    stepperMotor->runStepper();
     // Listen for commands
     scpiListener->listenForCommand();
     // Continuously check Wi-Fi connections
     if (USE_WIFI) {
-        SolarBlinds::wiFiTCP->checkConnection();
+        SolarBlinds::wiFiHTTCP->checkConnection();
     }
 }

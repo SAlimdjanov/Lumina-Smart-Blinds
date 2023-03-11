@@ -56,6 +56,15 @@ class SCPIHandler {
      */
     static void moveMotorCounterclockwise(SCPI_C messages, SCPI_P parameters,
                                           Stream &interface);
+    /**
+     * @brief
+     *
+     * @param messages
+     * @param parameters
+     * @param interface
+     */
+    static void stopMotor(SCPI_C messages, SCPI_P parameters,
+                          Stream &interface);
 
    private:
     // SCPI Handler module tag
@@ -66,6 +75,17 @@ class SCPIHandler {
     static SystemLogger *systemLogger;
     // Stepper Motor Object
     static StepMotor *stepperMotor;
+
+    /**
+     * @brief Change log level on command
+     *
+     * @param messages
+     * @param parameters
+     * @param interface
+     * @return * void
+     */
+    static void changeLogLevel(SCPI_C messages, SCPI_P parameters,
+                               Stream &interface);
 
     /**
      * @brief Check if SCPI parameter input is valid
