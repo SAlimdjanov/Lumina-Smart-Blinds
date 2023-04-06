@@ -25,6 +25,8 @@ void SolarBlinds::initialize(void) {
 
 void SolarBlinds::run(void) {
     stepperMotor->runStepper();
+    // stepperMotor->isAtNinetyDegrees();
+    // stepperMotor->calibrationSweep();
     // Listen for commands
     scpiListener->listenForCommand();
     // Continuously check Wi-Fi connections

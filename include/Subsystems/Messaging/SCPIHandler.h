@@ -34,8 +34,7 @@ class SCPIHandler {
      * @param parameters SCPI Parameters (none)
      * @param interface Corresponding interface
      */
-    static void identifyCommand(SCPI_C messages, SCPI_P parameters,
-                                Stream &interface);
+    static void identifyCommand(SCPI_C messages, SCPI_P parameters, Stream &interface);
 
     /**
      * @brief Turn the motor clockwise
@@ -44,8 +43,7 @@ class SCPIHandler {
      * @param parameters SCPI Parameters (steps, direction)
      * @param interface Corresponding interface
      */
-    static void moveMotorClockwise(SCPI_C messages, SCPI_P parameters,
-                                   Stream &interface);
+    static void moveMotorClockwise(SCPI_C messages, SCPI_P parameters, Stream &interface);
 
     /**
      * @brief Turn the motor counterclockwise
@@ -54,8 +52,7 @@ class SCPIHandler {
      * @param parameters SCPI Parameters (steps, direction)
      * @param interface Corresponding interface
      */
-    static void moveMotorCounterclockwise(SCPI_C messages, SCPI_P parameters,
-                                          Stream &interface);
+    static void moveMotorCounterclockwise(SCPI_C messages, SCPI_P parameters, Stream &interface);
     /**
      * @brief
      *
@@ -63,8 +60,7 @@ class SCPIHandler {
      * @param parameters
      * @param interface
      */
-    static void stopMotor(SCPI_C messages, SCPI_P parameters,
-                          Stream &interface);
+    static void stopMotor(SCPI_C messages, SCPI_P parameters, Stream &interface);
 
    private:
     // SCPI Handler module tag
@@ -84,8 +80,16 @@ class SCPIHandler {
      * @param interface
      * @return * void
      */
-    static void changeLogLevel(SCPI_C messages, SCPI_P parameters,
-                               Stream &interface);
+    static void changeLogLevel(SCPI_C messages, SCPI_P parameters, Stream &interface);
+
+    /**
+     * @brief initiate cal sweep
+     *
+     * @param messages
+     * @param parameters
+     * @param interface
+     */
+    static void calibrate(SCPI_C messages, SCPI_P parameters, Stream &interface);
 
     /**
      * @brief Check if SCPI parameter input is valid
@@ -96,6 +100,5 @@ class SCPIHandler {
      * @return true
      * @return false
      */
-    static bool areParametersValid(SCPI_P parameters, int expectedNumber,
-                                   Stream &interface);
+    static bool areParametersValid(SCPI_P parameters, int expectedNumber, Stream &interface);
 };

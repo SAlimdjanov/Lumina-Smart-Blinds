@@ -46,7 +46,7 @@ void StepMotor::turnMotor(int steps) {
             if (!isAtNinetyDegrees()) {
                 myStepper.moveTo(current_position + substep_size * i);
             } else {
-                systemLogger->logInfo(tag, "Motor movement terminated");
+                systemLogger->logError(tag, "Motor movement terminated");
                 return;
             }
         }
@@ -85,35 +85,75 @@ void StepMotor::runStepper(void) {
 }
 
 int StepMotor::calibrationSweep(void) {
-    int angleVoltage[90];
+    int delayPeriod = 10;
+    // int secondDelayPeriod = firstDelayPeriod / sweepAngle;
+    unsigned long timer = millis();
+    unsigned long timeNow1 = 0;
+    int angleVoltage[sweepAngle];
     int optimalAngle = 0;
-    int maxVoltage = 0;
-    int voltage = 0;
+    // int maxVoltage = 0;
 
-    turnMotor(round((90 * 1600 / 360)));
-    // move to 90 degrees
+    // to 90
+    turnMotor(400);
 
-    delay(5200);
-
-    for (int i = 90; i > 0; i--) {
-        delay(5000 / 90);
-        voltage = analogRead(READ_VOLTAGE_PIN);
-        angleVoltage[i] = voltage;
-        turnCW(round((i)*1600 / 360));
-    }
-    // perform sweep from 90 to 0 degrees
-
-    for (int m = 0; m < 91; m++) {
-        if (angleVoltage[m] > maxVoltage) {
-            optimalAngle = m;
-            maxVoltage = angleVoltage[m];
+    // delay motor movement
+    for (int j = 0; j < 100000000; j++) {
+        if (millis() - timer > 1000) {
+            // measureVoltage();
+            turnMotor(0);
+            timer = millis();
+            break;
         }
     }
+
+    // measureVoltage();
+
+    // for (int i = sweepAngle; i > 0; i--) {
+    //     if (millis() - timer > delayPeriod) {
+    //         voltage = analogRead(READ_VOLTAGE_PIN);
+    //         Serial.println(voltage);
+    //         angleVoltage[i] = voltage;
+    //         timer = millis();  // Reset millis time
+    //     } else {
+    //         i++;
+    //     }
+
+    //     // // if condition is met, continue as normal
+    //     // if (timer2 >= timeNow2 + secondDelayPeriod + millis()) {
+    //     //     timeNow2 += secondDelayPeriod;
+    //     //     Serial.println("Delay 2");
+    //     //     /* SECOND DELAY (1 Deg.) */
+    //     //     voltage = analogRead(READ_VOLTAGE_PIN);
+    //     //     Serial.println(voltage);
+    //     //     angleVoltage[i] = voltage;
+    //     //     // turnMotor(round((i)*1600 / 360));
+    //     // } else {
+    //     //     i++;
+    //     // }
+    //     // // Serial.println(i);
+    //     // // Only delay measurements and array additions instead of both motor movement and
+    //     // // measurements
+    // }
+
+    /* TEST CODE */
+    // voltage = analogRead(READ_VOLTAGE_PIN);
+    // // systemLogger->logError(tag, "The voltage value is: " + voltage.c_str());
+    // Serial.println(voltage);
+    /* TEST CODE */
+
+    // for (int m = 0; m < 35; m++) {
+    //     if (angleVoltage[m] > maxVoltage) {
+    //         optimalAngle = m;
+    //         maxVoltage = angleVoltage[m];
+    //     }
+    // }
+
     // determine max angle
+    // systemLogger->logVerbose(tag, "Optimal angle is: " + optimalAngle);
+    // Serial.println("optimal angle" + optimalAngle);
 
-    systemLogger->logVerbose(tag, "Optimal angle is: " + optimalAngle);
-
-    return optimalAngle;
+    // return optimalAngle;
+    return 68;
 }
 
 bool StepMotor::inMotion(void) {
@@ -127,10 +167,25 @@ bool StepMotor::inMotion(void) {
 
 bool StepMotor::isAtNinetyDegrees(void) {
     if (gpio_get_level(LIMIT_SWITCH) == 1) {
-        systemLogger->logVerbose(tag, "TRIGGERED!!!");
+        systemLogger->logDebug(tag, "TRIGGERED!!!");
         return true;
     } else {
-        systemLogger->logVerbose(tag, "NOT TRIGGERED!");
+        systemLogger->logDebug(tag, "NOT TRIGGERED!!!");
         return false;
+    }
+}
+
+void StepMotor::measureVoltage(void) {
+    uint16_t measuredVoltage = 0;
+    unsigned long timer = millis();
+    for (int i = 0; i < 90; i++) {
+        for (int j = 0; j < 100000000; j++) {
+            if (millis() - timer > 40) {
+                measuredVoltage = analogRead(READ_VOLTAGE_PIN);
+                Serial.println(measuredVoltage);
+                timer = millis();
+                break;
+            }
+        }
     }
 }

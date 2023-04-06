@@ -81,6 +81,12 @@ class StepMotor {
      */
     bool isAtNinetyDegrees(void);
 
+    /**
+     * @brief Measure voltage value
+     *
+     */
+    void measureVoltage(void);
+
    private:
     // Module tag string
     std::string tag = "Stepper Motor";
@@ -91,4 +97,5 @@ class StepMotor {
     int voltageValues[90];
     long remainingSteps = 0;
     long currentPosition = 0;
+    int sweepAngle = 90;
 };
