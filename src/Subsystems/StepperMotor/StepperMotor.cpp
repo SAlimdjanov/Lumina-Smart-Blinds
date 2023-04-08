@@ -40,11 +40,13 @@ void StepMotor::turnMotor(int steps) {
     //     systemLogger->logInfo(tag, "Positive position value");
     // }
     int substep_size = 5;
+    int counter = 0;
     int substeps = (-steps - current_position) / substep_size;
     if (substeps < 0) {
         for (int i = 1; i >= substeps; i--) {
             if (!isAtNinetyDegrees()) {
                 myStepper.moveTo(current_position + substep_size * i);
+
             } else {
                 systemLogger->logError(tag, "Motor movement terminated");
                 return;
