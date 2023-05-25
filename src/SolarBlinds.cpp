@@ -24,12 +24,11 @@ void SolarBlinds::initialize(void) {
 }
 
 void SolarBlinds::run(void) {
+    // Run Stepper Motor
     stepperMotor->runStepper();
-    // stepperMotor->isAtNinetyDegrees();
-    // stepperMotor->calibrationSweep();
-    // Listen for commands
+    // Listen for SPCI commands
     scpiListener->listenForCommand();
-    // Continuously check Wi-Fi connections
+    // Continuously check Wi-Fi connection and data updates
     if (USE_WIFI) {
         SolarBlinds::wiFiHTTCP->checkConnection();
     }

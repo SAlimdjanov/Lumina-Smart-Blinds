@@ -20,10 +20,6 @@
 
 class WiFiHTTCP {
    public:
-    /**
-     * @brief Construct a new WiFiHTTCP object
-     *
-     */
     WiFiHTTCP();
     void initialize();
     int write(std::string msg);
@@ -31,9 +27,6 @@ class WiFiHTTCP {
     int available();
     void checkConnection();
     WiFiClient *getTCPClient();
-
-    // ASHHAL TEST CODE
-
     void optimalAngleSearch(void);
     void updateFlag(void);
 

@@ -44,6 +44,5 @@ class USBSerial {
     int available(void);
 
    private:
-    // Define serial baud rate
     const int SERIAL_BAUD_RATE = 115200;
 };

@@ -14,7 +14,7 @@ SCPIHandler::SCPIHandler(SCPIListener *listener) : scpiListener(listener) {
 }
 
 void SCPIHandler::identifyCommand(SCPI_C messages, SCPI_P parameters, Stream &interface) {
-    String identifier = "ENGPHYS 4A06: Automated Solar Blinds Capstone Project\n";
+    String identifier = "ENGPHYS 4A06: Lumina Smart Blinds Capstone Project\n";
     interface.print(identifier);
 }
 
@@ -36,13 +36,6 @@ void SCPIHandler::stopMotor(SCPI_C messages, SCPI_P parameters, Stream &interfac
     stepperMotor->stopMotor();
     systemLogger->logInfo(tag, "Stopped Motor.");
 }
-
-// void SCPIHandler::currentPosition(SCPI_C messages, SCPI_P parameters,
-//                             Stream &interface) {
-
-//     // stepperMotor->currentPosition();
-//     // systemLogger->logInfo(tag, "The current position is "+ );
-// }
 
 void SCPIHandler::changeLogLevel(SCPI_C messages, SCPI_P parameters, Stream &interface) {
     if (areParametersValid(parameters, 1, interface) == true) {

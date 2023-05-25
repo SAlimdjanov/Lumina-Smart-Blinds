@@ -87,12 +87,15 @@ class StepMotor {
      */
     void measureVoltage(void);
 
+    /**
+     * @brief Re-enable stepper
+     *
+     */
+    void reenableMotor(void);
+
    private:
-    // Module tag string
     std::string tag = "Stepper Motor";
-    // Motor speed (RPM)
     const int MOTOR_SPEED = 1;
-    // Obtain instance of logger
     SystemLogger* systemLogger = SystemLogger::getLogger();
     int voltageValues[90];
     long remainingSteps = 0;

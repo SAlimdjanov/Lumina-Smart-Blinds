@@ -31,8 +31,8 @@ class SolarBlinds {
     void run(void);
 
    private:
-    StepMotor *stepperMotor;  // Step Motor Class Object
-    USBSerial *usbSerial;     // USB Serial Class Object
+    StepMotor *stepperMotor;
+    USBSerial *usbSerial;
     SCPIListener *scpiListener;
     SCPIHandler *scpiHandler;
     WiFiHTTCP *wiFiHTTCP;
