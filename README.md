@@ -1,4 +1,9 @@
-# Solar Blinds Project Setup
+# Lumina Smart Blinds Capstone Project
+
+Embedded software for ENGPHYS 4A06 - Engineering Physics Design and Synthesis Project (Fall 2022 - Winter 2023)
+
+## Setup Notes
+
 After cloning the repository and opening it in Visual Studio Code, install the following extensions if you haven't already:
 - C/C++
 - C/C++ Extension Pack
@@ -13,5 +18,8 @@ You will also have to install the [LLVM Compiler](https://github.com/llvm/llvm-p
 `D:/LLVM/bin/clang-format.exe`
 
 If all is successful you should see the code format itself when you save changes to a file.
+</br>
+</br>
 
-#### Author: Sean Alimdjanov
+#### Authors: Sean Alimdjanov, Malik Awan, Ashhal Syed.
+#### Location: McMaster University, Hamilton, ON, Canada
