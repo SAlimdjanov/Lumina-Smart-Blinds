@@ -1,8 +1,7 @@
-// #include <Subsystems/StepperMotor/StepperMotor.h>
 #include <Subsystems/WiFi/WiFiHTTCP.h>
 
 const char *SSID = "SBlinds";
-const char *PASSWORD = "maktal22";
+const char *PASSWORD = "pass";
 
 StepMotor *WiFiHTTCP::motor = new StepMotor();
 
@@ -84,7 +83,7 @@ void WiFiHTTCP::checkConnection() {
         }
     }
 
-    // SOLAR SWEEP //
+    // Initiate solar sweep
     if (delayedSweepFlag == true) {
         unsigned long currentDelayedSweepFlagtime = millis();
         if (currentDelayedSweepFlagtime - previousDelayedSweepFlagtime >=
@@ -126,6 +125,7 @@ void WiFiHTTCP::checkConnection() {
             previousGetVoltageFlagTime = currentGetVoltageFlagTime;
         }
     }
+
     if (millis() - time >= POLLING_INTERVAL && !isMotorMoving && getVoltageFlag == false &&
         reSyncFlag == false) {
         if ((WiFi.status() == WL_CONNECTED)) {
@@ -169,23 +169,4 @@ void WiFiHTTCP::checkConnection() {
     }
 }
 
-int WiFiHTTCP::write(std::string msg) {
-    systemLogger->logError(tag, "Write not implemented");
-    return 0;
-}
-
-int WiFiHTTCP::read() {
-    systemLogger->logError(tag, "Read not implemented");
-    return 0;
-}
-
-int WiFiHTTCP::available() {
-    systemLogger->logError(tag, "Available not implemented");
-    return 0;
-}
-
 WiFiClient *WiFiHTTCP::getTCPClient() { return TCPClient; }
-
-void WiFiHTTCP::optimalAngleSearch(void) {}
-
-void WiFiHTTCP::updateFlag(void) {}

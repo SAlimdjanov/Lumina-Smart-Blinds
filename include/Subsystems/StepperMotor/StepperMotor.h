@@ -58,12 +58,11 @@ class StepMotor {
     void runStepper(void);
 
     /**
-     * @brief Rotate from 0-90 deg. positions to measure optimal angle
+     * @brief Rotate from 0-90 deg. positions to allow voltage measurements
      *
-     * @return maximum measured digital voltage value (int)
      *
      */
-    int calibrationSweep(void);
+    void calibrationSweep(void);
 
     /**
      * @brief Check if motor is still in motion via position comparison
@@ -94,11 +93,18 @@ class StepMotor {
     void reenableMotor(void);
 
    private:
+    // Module Tag
     std::string tag = "Stepper Motor";
+    // Motor Speed (RPM)
     const int MOTOR_SPEED = 1;
+    // Logger Object
     SystemLogger* systemLogger = SystemLogger::getLogger();
+    // Measured Voltage value array
     int voltageValues[90];
+    // Remaining motor steps
     long remainingSteps = 0;
+    // Current motor position
     long currentPosition = 0;
+    // Motor sweep angle
     int sweepAngle = 90;
 };

@@ -54,35 +54,23 @@ void StepMotor::turnCW(int steps) { myStepper.moveTo(steps); }
 
 void StepMotor::stopMotor(void) { myStepper.disableOutputs(); }
 
-/**
- * @brief Investigate why stop function doesn't work instead of loophole:
- *             - Moving back to zero does not work, continues motion in CW
- *               direction and crashes against lim switch.
- *             - Moving in both directions caused this issue.
- *             - Loophole does not permit additional movement once switch is
- *               triggered, but does not interrupt motion midway
- *
- */
 void StepMotor::runStepper(void) { myStepper.run(); }
 
-int StepMotor::calibrationSweep(void) {
+void StepMotor::calibrationSweep(void) {
     unsigned long timer = millis();
     int optimalAngle = 0;
 
-    // to 90
+    // Sweep to 90 degrees
     turnMotor(400);
 
-    // delay motor movement
+    // Delay motor movement
     for (int j = 0; j < 100000000; j++) {
         if (millis() - timer > 1000) {
-            // measureVoltage();
             turnMotor(0);
             timer = millis();
             break;
         }
     }
-
-    return optimalAngle;
 }
 
 bool StepMotor::inMotion(void) {

@@ -44,5 +44,6 @@ class USBSerial {
     int available(void);
 
    private:
+    // Serial bitrate
     const int SERIAL_BAUD_RATE = 115200;
 };
