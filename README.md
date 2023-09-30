@@ -21,5 +21,6 @@ If all is successful you should see the code format itself when you save changes
 </br>
 </br>
 
-#### Authors: Sean Alimdjanov, Malik Awan, Ashhal Syed.
+#### Author: Sean Alimdjanov, with assistance from Malik Awan and Ashhal Syed.
+
 #### Location: McMaster University, Hamilton, ON, Canada
